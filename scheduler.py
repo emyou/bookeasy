@@ -2,11 +2,13 @@ import streamlit as st
 from datetime import datetime
 import gspread
 from google.oauth2.service_account import Credentials
+from google.oauth2 import service_account
 import pandas as pd
 
 # Google Sheets Setup
 SCOPE = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
-CREDS = Credentials.from_service_account_file("credentials.json", scopes=SCOPE)
+#CREDS = Credentials.from_service_account_file("credentials.json", scopes=SCOPE)
+CREDS = service_account.Credentials.from_service_account_info(st.secrets["gcp_service_account"])
 client = gspread.authorize(CREDS)
 SHEET_NAME = "BookEasy"  # Update if your sheet has a different name
 
